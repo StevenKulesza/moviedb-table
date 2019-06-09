@@ -2,23 +2,38 @@ import React from "react";
 import "./table.scss";
 import { POSTER_PATH } from "../../constants";
 
-const MovieTable = ({ data, tableTiles, deleteItem, favoriteItem }) => {
-  if (!Array.isArray(data)) return <div>Data Unreadable.</div>;
-  if (data.length < 1) return <div>No movies to show currently.</div>;
+const MovieTable = ({
+  data,
+  tableTiles,
+  sortColumnHandler,
+  deleteItem,
+  favoriteItem,
+  activeColumn,
+  toggle
+}) => {
+  if (!Array.isArray(data))
+    return <div className="message">Data Unreadable.</div>;
+  if (data.length < 1)
+    return <div className="message">No movies to show currently.</div>;
 
   return (
     <table className="responsive-table">
       <thead>
         <tr>
-          {tableTiles.map(item => {
+          {tableTiles.map((item, idx) => {
             return (
               <th
                 key={item.title}
-                onClick={() => {}}
+                onClick={
+                  item.type === "interger" || item.type === "string"
+                    ? () => sortColumnHandler(item.data_item, idx)
+                    : null
+                }
                 scope="col"
                 data-label={item.title}
               >
                 {item.title}
+                {activeColumn === idx ? (toggle ? " ↓" : " ↑") : ""}
               </th>
             );
           })}

@@ -15,22 +15,24 @@ export default class Index extends Component {
     super(props);
     this.state = {
       activeTab: "movie",
+      activeColumn: null,
       data: [],
       tableTiles: [
-        { title: "Title", data_item: "title" },
-        { title: "Vote", data_item: "vote_count" },
-        { title: "Average Vote", data_item: "vote_average" },
-        { title: "Popularity", data_item: "popularity" },
-        { title: "Poster", data_item: "poster_path" },
-        { title: "Overview", data_item: "overview" },
-        { title: "Favorite", data_item: "favorite" },
-        { title: "Delete", data_item: "delete" }
+        { title: "Title", data_item: "title", type: "string" },
+        { title: "Vote", data_item: "vote_count", type: "interger" },
+        { title: "Average Vote", data_item: "vote_average", type: "interger" },
+        { title: "Popularity", data_item: "popularity", type: "interger" },
+        { title: "Poster", data_item: "poster_path", type: "string" },
+        { title: "Overview", data_item: "overview", type: "string" },
+        { title: "Favorite", data_item: "favorite", type: "boolean" },
+        { title: "Delete", data_item: "delete", type: "function" }
       ],
       favoriteMovies: []
     };
 
     this.deleteItem = this.deleteItem.bind(this);
     this.favoriteItem = this.favoriteItem.bind(this);
+    this.sortColumnHandler = this.sortColumnHandler.bind(this);
   }
   componentDidMount() {
     this.setState({ data: this.props.data });
@@ -61,25 +63,50 @@ export default class Index extends Component {
     this.setState({ data, favoriteMovies });
   }
 
-  sortColumn(a, colIndex, reverse) {
-    if (reverse === true) {
-      a.sort(sortFunction).reverse();
+  sortColumnHandler(title, idx) {
+    if (this.state.activeColumn === idx) {
+      let toggle = !this.state.toggle;
+      this.setState({
+        toggle: toggle,
+        activeColumn: idx,
+        rows: this.sortColumn(this.state.data, title, toggle)
+      });
     } else {
-      a.sort(sortFunction);
+      this.setState({
+        activeColumn: idx,
+        rows: this.sortColumn(this.state.data, title, false)
+      });
+    }
+  }
+
+  sortColumn(data, colIdx, reverse) {
+    console.log(data, colIdx, reverse);
+    if (reverse === true) {
+      data.sort(sortFunction).reverse();
+    } else {
+      data.sort(sortFunction);
     }
 
     function sortFunction(a, b) {
-      if (a[colIndex] === b[colIndex]) {
+      if (a[colIdx] === b[colIdx]) {
         return 0;
       } else {
-        return a[colIndex] < b[colIndex] ? -1 : 1;
+        return a[colIdx] < b[colIdx] ? -1 : 1;
       }
     }
-    return a;
+    return data;
   }
 
   render() {
-    const { activeTab, data, tableTiles, favoriteMovies } = this.state;
+    const {
+      activeTab,
+      data,
+      tableTiles,
+      favoriteMovies,
+      activeColumn,
+      toggle
+    } = this.state;
+
     return (
       <div className="container">
         <div className="tabs">
@@ -102,8 +129,11 @@ export default class Index extends Component {
         <MovieTable
           data={activeTab === "movie" ? data : favoriteMovies}
           tableTiles={tableTiles}
+          activeColumn={activeColumn}
+          toggle={toggle}
           deleteItem={this.deleteItem}
           favoriteItem={this.favoriteItem}
+          sortColumnHandler={this.sortColumnHandler}
         />
       </div>
     );
