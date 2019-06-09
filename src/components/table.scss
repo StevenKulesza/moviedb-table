@@ -1,0 +1,21 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  background-color: white;
+  font-size: 0.8em;
+}
+th {
+  text-align: left;
+}
+th,
+td {
+  border: 1px solid #dfdfdf;
+  padding: 1rem;
+
+  div {
+    max-height: 5em;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+}
