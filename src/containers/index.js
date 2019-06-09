@@ -80,7 +80,6 @@ export default class Index extends Component {
   }
 
   sortColumn(data, colIdx, reverse) {
-    console.log(data, colIdx, reverse);
     if (reverse === true) {
       data.sort(sortFunction).reverse();
     } else {
