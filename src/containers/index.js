@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import MovieTable from "../components/movieTable";
+import MovieTable from "../components/movieTable/movieTable";
 
 // Title (string - sort)
 // Vote Count (number - sort)
 // Average Vote (number - editable - sort)
 // Popularity (number - sort)
-// Poster (use https://image.tmdb.org/t/p/w370_and_h556_bestv2/{key})
-// Overview
+// Poster - not in the mockups, assuming just linking to the image based on README (string - sort)
+// Overview (string - sort)
 // Favorite
 // Delete
 
@@ -33,10 +33,7 @@ export default class Index extends Component {
     this.favoriteItem = this.favoriteItem.bind(this);
   }
   componentDidMount() {
-    // I was not sure 100% if you all wanted me to ping the api here or store data.
-    this.setState({
-      data: this.props.data
-    });
+    this.setState({ data: this.props.data });
   }
 
   changeTab(tab) {
@@ -45,13 +42,16 @@ export default class Index extends Component {
 
   deleteItem(idx) {
     let data = [...this.state.data];
+
     data.splice(idx, 1);
+
     this.setState({ data });
   }
 
   favoriteItem(idx) {
     let data = [...this.state.data];
     let favoriteMovies = [...this.state.favoriteMovies];
+
     data[idx].favorite = !data[idx].favorite;
 
     data[idx].favorite
@@ -59,6 +59,23 @@ export default class Index extends Component {
       : favoriteMovies.splice(idx, 1);
 
     this.setState({ data, favoriteMovies });
+  }
+
+  sortColumn(a, colIndex, reverse) {
+    if (reverse === true) {
+      a.sort(sortFunction).reverse();
+    } else {
+      a.sort(sortFunction);
+    }
+
+    function sortFunction(a, b) {
+      if (a[colIndex] === b[colIndex]) {
+        return 0;
+      } else {
+        return a[colIndex] < b[colIndex] ? -1 : 1;
+      }
+    }
+    return a;
   }
 
   render() {

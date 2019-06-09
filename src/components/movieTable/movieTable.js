@@ -1,6 +1,6 @@
 import React from "react";
 import "./table.scss";
-import { POSTER_PATH } from "../constants";
+import { POSTER_PATH } from "../../constants";
 
 const MovieTable = ({ data, tableTiles, deleteItem, favoriteItem }) => {
   if (!Array.isArray(data)) return <div>Data Unreadable.</div>;
