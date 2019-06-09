@@ -1,9 +1,10 @@
 import React from "react";
 import "./table.scss";
+import { POSTER_PATH } from "../constants";
 
 const MovieTable = ({ data, tableTiles, deleteItem, favoriteItem }) => {
-  if (data.length < 1 || !Array.isArray(data))
-    return <div>Data Unreadable. Try again later.</div>;
+  if (!Array.isArray(data)) return <div>Data Unreadable.</div>;
+  if (data.length < 1) return <div>No movies to show currently.</div>;
 
   return (
     <table className="responsive-table">
@@ -31,7 +32,9 @@ const MovieTable = ({ data, tableTiles, deleteItem, favoriteItem }) => {
               <td>{row.vote_count}</td>
               <td>{row.vote_average}</td>
               <td>{row.popularity}</td>
-              <td>{row.poster_path}</td>
+              <td>
+                <a href={POSTER_PATH + row.poster_path}>{row.poster_path}</a>
+              </td>
               <td>
                 <div>{row.overview}</div>
               </td>
