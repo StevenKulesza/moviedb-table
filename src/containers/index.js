@@ -15,6 +15,7 @@ export default class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeTab: "movie",
       data: [],
       tableTiles: [
         { title: "Title", data_item: "title" },
@@ -30,9 +31,14 @@ export default class Index extends Component {
     };
   }
   componentDidMount() {
+    // I was not sure 100% if you all wanted me to ping the api here or store data.
     this.setState({
       data: this.props.data
     });
+  }
+
+  changeTab(tab) {
+    this.setState({ activeTab: tab });
   }
 
   deleteItem(id) {
@@ -44,11 +50,28 @@ export default class Index extends Component {
   }
 
   render() {
-    const { data, tableTiles } = this.state;
+    const { activeTab, data, tableTiles, favoriteMovies } = this.state;
     return (
       <div className="container">
+        <div className="tabs">
+          <button
+            className={"tab-button " + (activeTab === "movie" ? "active" : "")}
+            onClick={() => this.changeTab("movie")}
+          >
+            Movie List
+          </button>
+          <button
+            className={
+              "tab-button " + (activeTab === "favorite" ? "active" : "")
+            }
+            onClick={() => this.changeTab("favorite")}
+          >
+            Favorites List
+          </button>
+        </div>
+
         <MovieTable
-          data={data}
+          data={activeTab === "movie" ? data : favoriteMovies}
           tableTiles={tableTiles}
           deleteItem={this.deleteItem}
           favoriteItem={this.favoriteItem}
