@@ -8,7 +8,6 @@ import MovieTable from "../components/movieTable";
 // Poster (use https://image.tmdb.org/t/p/w370_and_h556_bestv2/{key})
 // Overview
 // Favorite
-// Select Movie
 // Delete
 
 export default class Index extends Component {
@@ -31,6 +30,7 @@ export default class Index extends Component {
     };
 
     this.deleteItem = this.deleteItem.bind(this);
+    this.favoriteItem = this.favoriteItem.bind(this);
   }
   componentDidMount() {
     // I was not sure 100% if you all wanted me to ping the api here or store data.
@@ -44,13 +44,21 @@ export default class Index extends Component {
   }
 
   deleteItem(idx) {
-    var data = [...this.state.data];
+    let data = [...this.state.data];
     data.splice(idx, 1);
     this.setState({ data });
   }
 
-  favoriteItem(id) {
-    console.log("favorite", id);
+  favoriteItem(idx) {
+    let data = [...this.state.data];
+    let favoriteMovies = [...this.state.favoriteMovies];
+    data[idx].favorite = !data[idx].favorite;
+
+    data[idx].favorite
+      ? favoriteMovies.push(data[idx])
+      : favoriteMovies.splice(idx, 1);
+
+    this.setState({ data, favoriteMovies });
   }
 
   render() {
