@@ -29,6 +29,8 @@ export default class Index extends Component {
       ],
       favoriteMovies: []
     };
+
+    this.deleteItem = this.deleteItem.bind(this);
   }
   componentDidMount() {
     // I was not sure 100% if you all wanted me to ping the api here or store data.
@@ -41,8 +43,10 @@ export default class Index extends Component {
     this.setState({ activeTab: tab });
   }
 
-  deleteItem(id) {
-    console.log("delete", id);
+  deleteItem(idx) {
+    var data = [...this.state.data];
+    data.splice(idx, 1);
+    this.setState({ data });
   }
 
   favoriteItem(id) {

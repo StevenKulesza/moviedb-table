@@ -25,7 +25,7 @@ const MovieTable = ({ data, tableTiles, deleteItem, favoriteItem }) => {
         </tr>
       </thead>
       <tbody>
-        {data.map(row => {
+        {data.map((row, idx) => {
           return (
             <tr key={row.id}>
               <td>{row.title}</td>
@@ -42,7 +42,7 @@ const MovieTable = ({ data, tableTiles, deleteItem, favoriteItem }) => {
                 <input type="checkbox" onClick={() => favoriteItem(row.id)} />
               </td>
               <td>
-                <button onClick={() => deleteItem(row.id)}>delete</button>
+                <button onClick={() => deleteItem(idx)}>delete</button>
               </td>
             </tr>
           );
