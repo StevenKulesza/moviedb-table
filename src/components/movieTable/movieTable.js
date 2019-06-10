@@ -72,7 +72,7 @@ const MovieTable = ({
                   rel="noopener noreferrer"
                   href={POSTER_PATH + row.poster_path}
                 >
-                  {row.poster_path}
+                  View
                 </a>
               </td>
               <td>

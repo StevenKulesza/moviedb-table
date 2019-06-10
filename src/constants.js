@@ -5,7 +5,7 @@ export const MOVIE_TITLES = [
   { title: "Vote", data_item: "vote_count", type: "interger" },
   { title: "Average Vote", data_item: "vote_average", type: "interger" },
   { title: "Popularity", data_item: "popularity", type: "interger" },
-  { title: "Poster", data_item: "poster_path", type: "string" },
+  { title: "Poster", data_item: "poster_path", type: "link" },
   { title: "Overview", data_item: "overview", type: "string" },
   { title: "Favorite", data_item: "favorite", type: "boolean" },
   { title: "Delete", data_item: "delete", type: "function" }
