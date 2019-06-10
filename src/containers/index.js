@@ -45,15 +45,17 @@ export default class Index extends Component {
     this.setState({ data });
   }
 
-  favoriteItem(idx) {
+  favoriteItem(idx, id) {
     let data = [...this.state.data];
     let favoriteMovies = [...this.state.favoriteMovies];
+    let index = data.findIndex(x => x.id === id);
+    let favoritesIndex = favoriteMovies.findIndex(x => x.id === id);
 
-    data[idx].favorite = !data[idx].favorite;
+    data[index].favorite = !data[index].favorite;
 
     data[idx].favorite
-      ? favoriteMovies.push(data[idx])
-      : favoriteMovies.splice(idx, 1);
+      ? favoriteMovies.push(data[index])
+      : favoriteMovies.splice(favoritesIndex, 1);
 
     this.setState({ data, favoriteMovies });
   }
