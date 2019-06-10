@@ -1,5 +1,16 @@
 export const POSTER_PATH = "https://image.tmdb.org/t/p/w370_and_h556_bestv2";
 
+export const MOVIE_TITLES = [
+  { title: "Title", data_item: "title", type: "string" },
+  { title: "Vote", data_item: "vote_count", type: "interger" },
+  { title: "Average Vote", data_item: "vote_average", type: "interger" },
+  { title: "Popularity", data_item: "popularity", type: "interger" },
+  { title: "Poster", data_item: "poster_path", type: "string" },
+  { title: "Overview", data_item: "overview", type: "string" },
+  { title: "Favorite", data_item: "favorite", type: "boolean" },
+  { title: "Delete", data_item: "delete", type: "function" }
+];
+
 export const MOVIE_DATA = [
   {
     vote_count: 2063,

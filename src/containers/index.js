@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import MovieTable from "../components/movieTable/movieTable";
 import Tabs from "../components/tabs/tabs";
+import { sortColumn } from "../utils";
 
 export default class Index extends Component {
   constructor(props) {
@@ -9,16 +10,6 @@ export default class Index extends Component {
       activeTab: "movie",
       activeColumn: null,
       data: [],
-      tableTiles: [
-        { title: "Title", data_item: "title", type: "string" },
-        { title: "Vote", data_item: "vote_count", type: "interger" },
-        { title: "Average Vote", data_item: "vote_average", type: "interger" },
-        { title: "Popularity", data_item: "popularity", type: "interger" },
-        { title: "Poster", data_item: "poster_path", type: "string" },
-        { title: "Overview", data_item: "overview", type: "string" },
-        { title: "Favorite", data_item: "favorite", type: "boolean" },
-        { title: "Delete", data_item: "delete", type: "function" }
-      ],
       favoriteMovies: []
     };
 
@@ -62,38 +53,20 @@ export default class Index extends Component {
       this.setState({
         toggle: toggle,
         activeColumn: idx,
-        rows: this.sortColumn(this.state.data, title, toggle)
+        rows: sortColumn(this.state.data, title, toggle)
       });
     } else {
       this.setState({
         activeColumn: idx,
-        rows: this.sortColumn(this.state.data, title, false)
+        rows: sortColumn(this.state.data, title, false)
       });
     }
-  }
-
-  sortColumn(data, colIdx, reverse) {
-    if (reverse === true) {
-      data.sort(sortFunction).reverse();
-    } else {
-      data.sort(sortFunction);
-    }
-
-    function sortFunction(a, b) {
-      if (a[colIdx] === b[colIdx]) {
-        return 0;
-      } else {
-        return a[colIdx] < b[colIdx] ? -1 : 1;
-      }
-    }
-    return data;
   }
 
   render() {
     const {
       activeTab,
       data,
-      tableTiles,
       favoriteMovies,
       activeColumn,
       toggle
@@ -104,7 +77,7 @@ export default class Index extends Component {
         <Tabs changeTab={this.changeTab} activeTab={activeTab} />
         <MovieTable
           data={activeTab === "movie" ? data : favoriteMovies}
-          tableTiles={tableTiles}
+          tableTiles={this.props.titles}
           activeColumn={activeColumn}
           toggle={toggle}
           deleteItem={this.deleteItem}
