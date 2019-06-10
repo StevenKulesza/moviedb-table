@@ -17,6 +17,7 @@ export default class Index extends Component {
     this.favoriteItem = this.favoriteItem.bind(this);
     this.sortColumnHandler = this.sortColumnHandler.bind(this);
     this.changeTab = this.changeTab.bind(this);
+    this.handleVoteChange = this.handleVoteChange.bind(this);
   }
   componentDidMount() {
     this.setState({ data: this.props.data });
@@ -31,6 +32,16 @@ export default class Index extends Component {
 
     data.splice(idx, 1);
 
+    this.setState({ data });
+  }
+
+  handleVoteChange(e, idx) {
+    let validation = /^\d*[.,]?\d{0,1}$/g;
+    if (!validation.test(e.target.value) || e.target.value > 10) return;
+
+    let data = [...this.state.data];
+
+    data[idx].vote_average = e.target.value;
     this.setState({ data });
   }
 
@@ -83,6 +94,7 @@ export default class Index extends Component {
           deleteItem={this.deleteItem}
           favoriteItem={this.favoriteItem}
           sortColumnHandler={this.sortColumnHandler}
+          handleVoteChange={this.handleVoteChange}
         />
       </div>
     );

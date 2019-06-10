@@ -9,7 +9,8 @@ const MovieTable = ({
   deleteItem,
   favoriteItem,
   activeColumn,
-  toggle
+  toggle,
+  handleVoteChange
 }) => {
   if (!Array.isArray(data))
     return <div className="message">Data Unreadable.</div>;
@@ -45,7 +46,13 @@ const MovieTable = ({
             <tr key={row.id}>
               <td>{row.title}</td>
               <td>{row.vote_count}</td>
-              <td>{row.vote_average}</td>
+              <td>
+                <input
+                  type="text"
+                  onChange={e => handleVoteChange(e, idx)}
+                  value={row.vote_average}
+                />
+              </td>
               <td>{row.popularity}</td>
               <td>
                 <a href={POSTER_PATH + row.poster_path}>{row.poster_path}</a>

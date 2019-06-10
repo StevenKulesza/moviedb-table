@@ -7,6 +7,7 @@ table {
 }
 th {
   text-align: left;
+  min-width: 7em;
 }
 th,
 td {
@@ -17,6 +18,13 @@ td {
     max-height: 5em;
     overflow: hidden;
     overflow-y: scroll;
+  }
+
+  input {
+    border: 1px solid #fff;
+    &:hover {
+      border: 1px solid #dfdfdf;
+    }
   }
 }
 
