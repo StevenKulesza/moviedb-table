@@ -5,6 +5,7 @@ import { POSTER_PATH } from "../../constants";
 const MovieTable = ({
   data,
   tableTiles,
+  activeTab,
   sortColumnHandler,
   deleteItem,
   favoriteItem,
@@ -22,6 +23,10 @@ const MovieTable = ({
       <thead>
         <tr>
           {tableTiles.map((item, idx) => {
+            if (activeTab === "favorite" && item.title === "Delete") {
+              return null;
+            }
+
             return (
               <th
                 key={item.title}
@@ -68,14 +73,13 @@ const MovieTable = ({
                 <div>{row.overview}</div>
               </td>
               <td>
-                <input
-                  type="checkbox"
-                  onClick={() => favoriteItem(idx, row.id)}
-                />
+                <input type="checkbox" onClick={() => favoriteItem(row.id)} />
               </td>
-              <td>
-                <button onClick={() => deleteItem(idx)}>delete</button>
-              </td>
+              {activeTab === "movie" ? (
+                <td>
+                  <button onClick={() => deleteItem(idx)}>delete</button>
+                </td>
+              ) : null}
             </tr>
           );
         })}

@@ -45,7 +45,7 @@ export default class Index extends Component {
     this.setState({ data });
   }
 
-  favoriteItem(idx, id) {
+  favoriteItem(id) {
     let data = [...this.state.data];
     let favoriteMovies = [...this.state.favoriteMovies];
     let index = data.findIndex(x => x.id === id);
@@ -53,7 +53,7 @@ export default class Index extends Component {
 
     data[index].favorite = !data[index].favorite;
 
-    data[idx].favorite
+    data[index].favorite
       ? favoriteMovies.push(data[index])
       : favoriteMovies.splice(favoritesIndex, 1);
 
@@ -90,6 +90,7 @@ export default class Index extends Component {
         <Tabs changeTab={this.changeTab} activeTab={activeTab} />
         <MovieTable
           data={activeTab === "movie" ? data : favoriteMovies}
+          activeTab={activeTab}
           tableTiles={this.props.titles}
           activeColumn={activeColumn}
           toggle={toggle}
