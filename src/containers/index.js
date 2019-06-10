@@ -10,7 +10,8 @@ export default class Index extends Component {
       activeTab: "movie",
       activeColumn: null,
       data: [],
-      favoriteMovies: []
+      favoriteMovies: [],
+      toggle: false
     };
 
     this.deleteItem = this.deleteItem.bind(this);
@@ -25,7 +26,11 @@ export default class Index extends Component {
   }
 
   changeTab(tab) {
-    this.setState({ activeTab: tab });
+    this.setState({
+      activeTab: tab,
+      activeColumn: null,
+      toggle: false
+    });
   }
 
   deleteItem(id) {
@@ -87,19 +92,17 @@ export default class Index extends Component {
   }
 
   sortColumnHandler(title, idx) {
-    if (this.state.activeColumn === idx) {
-      let toggle = !this.state.toggle;
-      this.setState({
-        toggle: toggle,
-        activeColumn: idx,
-        rows: sortColumn(this.state.data, title, toggle)
-      });
-    } else {
-      this.setState({
-        activeColumn: idx,
-        rows: sortColumn(this.state.data, title, false)
-      });
-    }
+    let sortData;
+
+    this.state.activeTab === "movie"
+      ? (sortData = this.state.data)
+      : (sortData = this.state.favoriteMovies);
+
+    this.setState({
+      toggle: !this.state.toggle,
+      activeColumn: idx,
+      rows: sortColumn(sortData, title, !this.state.toggle)
+    });
   }
 
   render() {
@@ -110,6 +113,7 @@ export default class Index extends Component {
       activeColumn,
       toggle
     } = this.state;
+
     return (
       <div className="container">
         <Tabs changeTab={this.changeTab} activeTab={activeTab} />

@@ -44,7 +44,7 @@ const MovieTable = ({
                 data-label={item.title}
               >
                 {item.title}
-                {activeColumn === idx ? (toggle ? " ↓" : " ↑") : ""}
+                {activeColumn === idx ? (toggle ? " ↑" : " ↓") : ""}
               </th>
             );
           })}
