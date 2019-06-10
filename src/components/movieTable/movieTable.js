@@ -79,7 +79,11 @@ const MovieTable = ({
                 <div>{row.overview}</div>
               </td>
               <td>
-                <input type="checkbox" onClick={() => favoriteItem(row.id)} />
+                <input
+                  type="checkbox"
+                  checked={row.favorite}
+                  onChange={() => favoriteItem(row.id)}
+                />
               </td>
               {activeTab === "movie" ? (
                 <td>
