@@ -1,6 +1,6 @@
 export const POSTER_PATH = "https://image.tmdb.org/t/p/w370_and_h556_bestv2";
 
-export const MOVE_DATA = [
+export const MOVIE_DATA = [
   {
     vote_count: 2063,
     id: 19404,

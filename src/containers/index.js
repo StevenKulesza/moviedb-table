@@ -1,14 +1,6 @@
 import React, { Component } from "react";
 import MovieTable from "../components/movieTable/movieTable";
 import Tabs from "../components/tabs/tabs";
-// Title (string - sort)
-// Vote Count (number - sort)
-// Average Vote (number - editable - sort)
-// Popularity (number - sort)
-// Poster - not in the mockups, assuming just linking to the image based on README (string - sort)
-// Overview (string - sort)
-// Favorite
-// Delete
 
 export default class Index extends Component {
   constructor(props) {

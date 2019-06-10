@@ -1,7 +1,7 @@
 import React from "react";
 import Index from "../containers/index";
-import { MOVE_DATA } from "../constants";
+import { MOVIE_DATA } from "../constants";
 
-const Movie = () => <Index data={MOVE_DATA} />;
+const Movie = () => <Index data={MOVIE_DATA} />;
 
 export default Movie;
