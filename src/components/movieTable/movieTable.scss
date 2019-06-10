@@ -19,3 +19,10 @@ td {
     overflow-y: scroll;
   }
 }
+
+th {
+  &:hover {
+    cursor: pointer;
+    background-color: #f4f4f4;
+  }
+}

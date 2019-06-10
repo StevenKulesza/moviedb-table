@@ -1,5 +1,5 @@
 import React from "react";
-import "./table.scss";
+import "./movieTable.scss";
 import { POSTER_PATH } from "../../constants";
 
 const MovieTable = ({

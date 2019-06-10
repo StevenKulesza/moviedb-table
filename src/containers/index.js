@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import MovieTable from "../components/movieTable/movieTable";
-
+import Tabs from "../components/tabs/tabs";
 // Title (string - sort)
 // Vote Count (number - sort)
 // Average Vote (number - editable - sort)
@@ -33,6 +33,7 @@ export default class Index extends Component {
     this.deleteItem = this.deleteItem.bind(this);
     this.favoriteItem = this.favoriteItem.bind(this);
     this.sortColumnHandler = this.sortColumnHandler.bind(this);
+    this.changeTab = this.changeTab.bind(this);
   }
   componentDidMount() {
     this.setState({ data: this.props.data });
@@ -108,23 +109,7 @@ export default class Index extends Component {
 
     return (
       <div className="container">
-        <div className="tabs">
-          <button
-            className={"tab-button " + (activeTab === "movie" ? "active" : "")}
-            onClick={() => this.changeTab("movie")}
-          >
-            Movie List
-          </button>
-          <button
-            className={
-              "tab-button " + (activeTab === "favorite" ? "active" : "")
-            }
-            onClick={() => this.changeTab("favorite")}
-          >
-            Favorites List
-          </button>
-        </div>
-
+        <Tabs changeTab={this.changeTab} activeTab={activeTab} />
         <MovieTable
           data={activeTab === "movie" ? data : favoriteMovies}
           tableTiles={tableTiles}
