@@ -25,6 +25,10 @@ export default class Index extends Component {
     this.favoriteItemByRating(this.props.data, 7);
   }
 
+  /**
+   * Updates the active tab to be visible
+   * @param {String} tab - the tab to change
+   */
   changeTab(tab) {
     this.setState({
       activeTab: tab,
@@ -33,6 +37,10 @@ export default class Index extends Component {
     });
   }
 
+  /**
+   * Deletes the movie from movie objects
+   * @param {String} id - the identifier for the movie row
+   */
   deleteItem(id) {
     let data = [...this.state.data];
     let favoriteMovies = [...this.state.favoriteMovies];
@@ -45,6 +53,11 @@ export default class Index extends Component {
     this.setState({ data, favoriteMovies });
   }
 
+  /**
+   * Changes the vote average in both movie objects then sorts
+   * @param {Object} e - the on change event containing the value
+   * @param {String} id - the identifier for the movie row
+   */
   handleVoteChange(e, id) {
     let validation = /^\d*[.,]?\d{0,1}$/g;
     if (!validation.test(e.target.value) || e.target.value > 10) return;
@@ -63,6 +76,10 @@ export default class Index extends Component {
     this.setState({ data, favoriteMovies });
   }
 
+  /**
+   * Adds or removes the favorite item from the tables
+   * @param {String} id - the identifier for the movie row
+   */
   favoriteItem(id) {
     let data = [...this.state.data];
     let favoriteMovies = [...this.state.favoriteMovies];
@@ -78,6 +95,11 @@ export default class Index extends Component {
     this.setState({ data, favoriteMovies });
   }
 
+  /**
+   * Sorts the favorites by rating
+   * @param {Object} data - the data to update
+   * @param {Number} rating - the value to filter against
+   */
   favoriteItemByRating(data, rating) {
     if (data.length < 1) return;
 
@@ -91,6 +113,11 @@ export default class Index extends Component {
     this.setState({ favoriteMovies: favoriteMovies[0] });
   }
 
+  /**
+   * Sorts the column increasing / decreasing values
+   * @param {string} title - the column to update
+   * @param {Number} idx - the active filter column
+   */
   sortColumnHandler(title, idx) {
     let sortData;
 
