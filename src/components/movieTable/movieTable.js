@@ -30,6 +30,11 @@ const MovieTable = ({
                     ? () => sortColumnHandler(item.data_item, idx)
                     : null
                 }
+                className={
+                  item.type === "interger" || item.type === "string"
+                    ? "sortable"
+                    : ""
+                }
                 scope="col"
                 data-label={item.title}
               >
