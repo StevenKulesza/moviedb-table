@@ -28,25 +28,34 @@ export default class Index extends Component {
     this.setState({ activeTab: tab });
   }
 
-  deleteItem(idx) {
+  deleteItem(id) {
     let data = [...this.state.data];
+    let favoriteMovies = [...this.state.favoriteMovies];
+    let index = data.findIndex(x => x.id === id);
+    let favoritesIndex = favoriteMovies.findIndex(x => x.id === id);
 
-    data.splice(idx, 1);
+    data.splice(index, 1);
+    favoriteMovies.splice(favoritesIndex, 1);
 
-    this.setState({ data });
+    this.setState({ data, favoriteMovies });
   }
 
-  handleVoteChange(e, idx) {
+  handleVoteChange(e, id) {
     let validation = /^\d*[.,]?\d{0,1}$/g;
     if (!validation.test(e.target.value) || e.target.value > 10) return;
 
     let data = [...this.state.data];
+    let favoriteMovies = [...this.state.favoriteMovies];
+    let index = data.findIndex(x => x.id === id);
+    let favoritesIndex = favoriteMovies.findIndex(x => x.id === id);
 
-    data[idx].vote_average = e.target.value;
+    data[index].vote_average = e.target.value;
+    favoriteMovies[favoritesIndex].vote_average = e.target.value;
 
     data = sortColumn(data, "vote_average", true);
+    favoriteMovies = sortColumn(favoriteMovies, "vote_average", true);
 
-    this.setState({ data });
+    this.setState({ data, favoriteMovies });
   }
 
   favoriteItem(id) {

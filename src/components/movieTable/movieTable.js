@@ -61,13 +61,19 @@ const MovieTable = ({
                   type="number"
                   min="0"
                   max="10"
-                  onChange={e => handleVoteChange(e, idx)}
+                  onChange={e => handleVoteChange(e, row.id)}
                   value={row.vote_average}
                 />
               </td>
               <td>{row.popularity}</td>
               <td>
-                <a href={POSTER_PATH + row.poster_path}>{row.poster_path}</a>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={POSTER_PATH + row.poster_path}
+                >
+                  {row.poster_path}
+                </a>
               </td>
               <td>
                 <div>{row.overview}</div>
@@ -77,7 +83,7 @@ const MovieTable = ({
               </td>
               {activeTab === "movie" ? (
                 <td>
-                  <button onClick={() => deleteItem(idx)}>delete</button>
+                  <button onClick={() => deleteItem(row.id)}>delete</button>
                 </td>
               ) : null}
             </tr>
