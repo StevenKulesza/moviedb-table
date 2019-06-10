@@ -48,7 +48,9 @@ const MovieTable = ({
               <td>{row.vote_count}</td>
               <td>
                 <input
-                  type="text"
+                  type="number"
+                  min="0"
+                  max="10"
                   onChange={e => handleVoteChange(e, idx)}
                   value={row.vote_average}
                 />
