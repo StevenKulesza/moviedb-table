@@ -20,7 +20,8 @@ export default class Index extends Component {
     this.handleVoteChange = this.handleVoteChange.bind(this);
   }
   componentDidMount() {
-    this.setState({ data: this.props.data });
+    this.setState({ data: sortColumn(this.props.data, "vote_average", true) });
+    this.favoriteItemByRating(this.props.data, 7);
   }
 
   changeTab(tab) {
@@ -42,6 +43,9 @@ export default class Index extends Component {
     let data = [...this.state.data];
 
     data[idx].vote_average = e.target.value;
+
+    data = sortColumn(data, "vote_average", true);
+
     this.setState({ data });
   }
 
@@ -58,6 +62,19 @@ export default class Index extends Component {
       : favoriteMovies.splice(favoritesIndex, 1);
 
     this.setState({ data, favoriteMovies });
+  }
+
+  favoriteItemByRating(data, rating) {
+    if (data.length < 1) return;
+
+    let favorites = [...data].filter(item => {
+      if (item.vote_average > rating) item.favorite = true;
+      return item.vote_average > rating;
+    });
+
+    let favoriteMovies = [...this.state.favoriteMovies, favorites];
+
+    this.setState({ favoriteMovies: favoriteMovies[0] });
   }
 
   sortColumnHandler(title, idx) {
@@ -84,7 +101,6 @@ export default class Index extends Component {
       activeColumn,
       toggle
     } = this.state;
-
     return (
       <div className="container">
         <Tabs changeTab={this.changeTab} activeTab={activeTab} />
